@@ -8,7 +8,7 @@ function App() {
   const [filteredResults, setFilteredResults] = useState([]);
   const [searchInput, setSearchInput] = useState("");
 
-  const searchTemp = searchValue => {
+  const searchTemp = (searchValue) => {
     setSearchInput(searchValue);
     if (searchValue !== "") {
       const filteredData = Object.keys(list.data).filter((item) => 
@@ -17,8 +17,6 @@ function App() {
         .toLowerCase()
         .includes(searchValue.toLowerCase())
       )
-      console.log(Object.keys(list.data));
-      console.log(filteredData);
       setFilteredResults(filteredData)
     } else {
       setFilteredResults(Object.keys(list.data))
