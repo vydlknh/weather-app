@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-const API_KEY = "0dbb0799c8e04ca9a7ca3ebe9cff7ae8";
+import WeatherChart from './components/WeatherChart';
+const API_KEY = import.meta.env.VITE_APP_API_KEY;
 import WeatherInfo from './components/WeatherInfo'; 
 
 function App() {
@@ -44,9 +45,10 @@ function App() {
           onChange={(inputString) => searchTemp(inputString.target.value)}/>
         <ul>
           {searchInput.length > 0 
-            ? filteredResults.map(([date]) => 
+            ? filteredResults.map(([date, nextdate]) => 
               <WeatherInfo
                 day={list.data[date].valid_date}
+                nextday={list.data[nextdate].valid_date}
                 icon={list.data[date].weather.icon}
                 desc={list.data[date].weather.description}
                 low={list.data[date].low_temp}
@@ -57,6 +59,7 @@ function App() {
             list && Object.entries(list.data).map(([date]) =>
               <WeatherInfo
               day={list.data[date].valid_date}
+              nextday={list.data[date].valid_date}
               icon={list.data[date].weather.icon}
               desc={list.data[date].weather.description}
               low={list.data[date].low_temp}
@@ -65,6 +68,10 @@ function App() {
             )
           }
         </ul>
+        <div>
+          <h2>October 2023</h2>
+          <WeatherChart/>
+        </div>
       </div>
     </>
   )

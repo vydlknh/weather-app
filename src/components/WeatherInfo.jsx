@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
+import { Link } from "react-router-dom";
 import '../App.css'
-const API_KEY = "0dbb0799c8e04ca9a7ca3ebe9cff7ae8";
+const API_KEY = import.meta.env.VITE_APP_API_KEY;
 
-const WeatherInfo = ({day, icon, desc, low, high}) => {
+const WeatherInfo = ({day, nextday, icon, desc, low, high}) => {
   const [date, setDate] = useState(null);
 
   useEffect (() => {
@@ -18,7 +19,38 @@ const WeatherInfo = ({day, icon, desc, low, high}) => {
 
   return (
     <>
-      {date ? (
+      <table>
+      <tbody> 
+        {date ? (
+          <tr className="main-list" key={day}>
+            <td>
+              {day}
+            </td>
+            <td>
+              <img 
+                src={`https://cdn.weatherbit.io/static/img/icons/${icon}.png`}
+                alt={`Small icon for ${desc}`}
+                className="icon" />
+            </td>
+            <td>   
+              {low}°C - {high}°C
+            </td>
+            <td>
+              <p>{desc}</p>
+            </td>
+            <td>
+            <Link
+              to={`/${day}/${nextday}`}
+              key={day}>
+              More info
+            </Link>
+            </td>
+          </tr>
+        ) : null
+        }
+        </tbody>
+      </table>
+      {/* {date ? (
         <li className="main-list" key={day}>
           {day}
           <img 
@@ -29,7 +61,7 @@ const WeatherInfo = ({day, icon, desc, low, high}) => {
             <p>{desc}</p>
         </li>
       ) : null
-      }
+      } */}
     </>
   )
 }
